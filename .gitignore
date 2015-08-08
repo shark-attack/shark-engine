@@ -1,1 +1,10 @@
 config.json
+private
+localstore
+
+libs/*.exe
+
+.idea
+_temp
+node_modules
+npm-debug.log
