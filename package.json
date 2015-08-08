@@ -1,8 +1,8 @@
 {
-  "name": "SharkAttack",
-  "description": "music feed aggregator",
+  "name": "sharkengine",
+  "description": "music feed aggregator engine",
   "author": "Ben Farrell <ben@benfarrell.com>",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "systemdependencies": "mediainfo, youtube-dl, ffmpeg, lamemp3lib",
   "dependencies": {
     "cron": "~1.0.1",
@@ -14,17 +14,11 @@
     "git-rev": "~0.2.1",
     "later": "^1.1.6",
     "osenv": "^0.1.0",
+    "request": "^2.60.0",
     "rimraf": "^2.2.8",
+    "sax": "^1.1.1",
     "xml2js": "0.1.x",
     "youtube-dl": "1.2.x"
   },
-  "engine": "node >= 0.11.10",
-  "devDependencies": {
-    "chai": "^1.9.1",
-    "gulp": "^3.8.5",
-    "gulp-download-atom-shell": "0.0.4",
-    "gulp-shell": "^0.2.7",
-    "mocha": "^1.20.1",
-    "sinon": "^1.10.2"
-  }
+  "engine": "node >= 0.11.10"
 }

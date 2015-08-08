@@ -1,8 +1,0 @@
-{
-  "name": "sharkattack",
-  "version": "2.0.0",
-  "dependencies": {
-    "paper-toggle-button": "PolymerElements/paper-toggle-button#1.0.0",
-    "later": "*"
-  }
-}

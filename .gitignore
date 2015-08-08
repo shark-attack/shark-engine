@@ -2,15 +2,9 @@ config.json
 private
 localstore
 
-app/components/polymer
-app/components/font-roboto
-app/components/core-*
-app/components/paper-*
-app/components/platform
-
 libs/*.exe
 
 .idea
 _temp
-binaries
 node_modules
+npm-debug.log
