@@ -121,6 +121,10 @@ function BuildShow(config) {
 
         self.pls = new Playlist(self.assets);
 
+        if (!fs.existsSync(config.packaging.showLocation)) {
+            fs.mkdirSync(config.packaging.showLocation);
+        }
+
         if (!fs.existsSync(config.packaging.showLocation + path.sep + self.showname)) {
             fs.mkdirSync(config.packaging.showLocation + path.sep + self.showname);
         }

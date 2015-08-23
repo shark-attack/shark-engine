@@ -2,8 +2,8 @@ var fs = require('fs');
 var path = require('path');
 var events = require("events");
 var util = require('util');
-var File = require('./File');
-var Library = require('./Library');
+var File = require('../utils/File');
+var Library = require('../utils/Library');
 
 /**
  * Clean

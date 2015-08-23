@@ -1,10 +1,13 @@
 var Config = require('./utils/Config');
 var Logging = require('./utils/Logging');
-var LogRead = require('./qos/LogReader');
-var ChannelPerformance = require('./qos/ChannelPerformance')
+var LogRead = require('./analytics/LogReader');
+var ChannelPerformance = require('./analytics/ChannelPerformance');
+var MediaFiles = require('./analytics/MediaFiles');
 var cfg = new Config().load('engine/config.json');
 
-var cp = new ChannelPerformance(cfg);
+
+
+//var cp = new ChannelPerformance(cfg);
 
 /*var lr = new LogRead(cfg);
 var file = lr.getFiles('verbose')[0];
