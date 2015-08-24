@@ -54,6 +54,7 @@ function Discover(config) {
      * @param sources
      */
     this.run = function(data) {
+        if (!data) { data = this.cfg.sourcefeed; }
         if (typeof data === "string") {
             data = JSON.parse(fs.readFileSync(data));
         }

@@ -11,18 +11,15 @@ var starttime = new Date();
 var BuildShow = require('./src/package/BuildShow.js');
 var showbuilder = new BuildShow(cfg);
 
-var show = process.argv[2] || 'SAShow';
-var duration = parseInt(process.argv[3]) || 5400;
-
 showbuilder.on(BuildShow.prototype.COMPLETE, function(stats) {
-    cfg.log("SharkAttack", "Show " + show + " created" );
-    Logging.recordTaskRun( { start: starttime, end: new Date(), name: 'packaging', details: 'Show ' + show + ' created' } );
+    cfg.log("SharkAttack", "Show " + cfg.packaging.showName + " created" );
+    Logging.recordTaskRun( { start: starttime, end: new Date(), name: 'packaging', details: 'Show ' + cfg.packaging.showName + ' created' } );
 
     if (cfg.packaging.compress === true) {
-        zipdir( cfg.packaging.showLocation + path.sep + show, { saveTo: cfg.packaging.showLocation + path.sep + show + '.zip' }, function (err, buffer) {
-            cfg.log("SharkAttack", "Show " + show + " zipped" );
-            Logging.recordTaskRun( { start: starttime, end: new Date(), name: 'packaging', details: 'Show ' + show + ' zipped' } );
+        zipdir( cfg.packaging.showLocation + path.sep + cfg.packaging.showName, { saveTo: cfg.packaging.showLocation + path.sep + cfg.packaging.showName + '.zip' }, function (err, buffer) {
+            cfg.log("SharkAttack", "Show " + cfg.packaging.showName + " zipped" );
+            Logging.recordTaskRun( { start: starttime, end: new Date(), name: 'packaging', details: 'Show ' + cfg.packaging.showName + ' zipped' } );
         });
     }
 });
-showbuilder.run(show, duration, cfg.libLocation);
+module.exports = showbuilder;

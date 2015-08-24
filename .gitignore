@@ -1,8 +1,5 @@
 private
 localstore
-
-libs/*.exe
-
 .idea
 _temp
 node_modules

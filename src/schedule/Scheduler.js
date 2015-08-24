@@ -1,7 +1,7 @@
 var fs = require('fs');
 var events = require('events');
 var util = require('util');
-var later = require('../../app/node_modules/later');
+var later = require('later');
 later.date.localTime();
 
 /**
@@ -19,14 +19,12 @@ function Scheduler(config) {
     /**
      * c-tor
      */
-    this.init = function() {
-        this.refresh();
-    };
+    this.init = function() {};
 
     /**
-     * refresh configuration
+     * run scheduler
      */
-    this.refresh = function() {
+    this.run = function() {
         for (var c in config.schedule ) {
             var sched = later.parse.text(config.schedule[c]);
             config.log('Schedule', 'Next run of '  + c + ' scheduled for ' + later.schedule(sched).next(1), { date: new Date(), level: "verbose" });

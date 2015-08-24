@@ -132,6 +132,7 @@ function GetMediaInfo(asset, cb, config) {
         cb(e, asset);
         return;
     } else {
+        console.log(config.mediaInfoExecutable)
         child_process.execFile(config.mediaInfoExecutable, ["--Output=XML"].concat(ref), function(err, stdout, stderr) {
             var parser = new xml2js.Parser();
             parser.addListener('end', function(result) {

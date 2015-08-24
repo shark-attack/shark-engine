@@ -44,6 +44,10 @@ function BuildShow(config) {
      * @param sources
      */
     this.run = function(showname, len, data) {
+        if (!showname) { showname = config.packaging.showName; }
+        if (!len) { len = config.packaging.showDuration; }
+        if (!data) { data = config.libLocation; }
+
         if (typeof data === "string") {
             data = JSON.parse(fs.readFileSync(data));
         }

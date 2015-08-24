@@ -20,6 +20,10 @@ function Clean(config) {
      * @param current library
      */
     this.run = function(dir, ignoredirs, lib) {
+        if (!dir) { dir = config.mediaDirectory; }
+        if (!ignoredirs) { ignoredirs = config.cleaning.ignoreDirectories; }
+        if (!lib) { lib = config.libLocation; }
+
         var deletelist = this.catalog(dir, ignoredirs, lib);
 
         for (var c in deletelist) {

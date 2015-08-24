@@ -12,9 +12,10 @@ var clean = new Clean(cfg);
 clean.on(Clean.prototype.COMPLETE, function(deleted) {
     cfg.log("SharkAttack", "Cleanup Finished");
     Logging.recordTaskRun( { start: starttime, end: new Date(), name: 'packaging', details: deleted.length + ' files deleted' } );
-});
-clean.run(cfg.mediaDirectory, cfg.cleaning.ignoreDirectories, cfg.libLocation);
 
-if (cfg.cleaning.cleanAllShows) {
-    rimraf(cfg.packaging.showLocation, null);
-}
+    if (cfg.cleaning.cleanAllShows) {
+        rimraf(cfg.packaging.showLocation, null);
+    }
+});
+
+module.exports = clean;

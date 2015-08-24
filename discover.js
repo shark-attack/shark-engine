@@ -13,4 +13,4 @@ discover.on(Discover.prototype.COMPLETE, function(lib, stats) {
     Logging.recordTaskRun( { start: starttime, end: new Date(), name: 'discovery', details: stats.totalAssets + ' assets found' } );
 
 });
-discover.run(cfg.sourcefeed);
+module.exports = discover;
