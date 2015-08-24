@@ -1,5 +1,4 @@
 var task = process.argv[2];
-console.log(task)
 
 switch (task) {
     case 'package':
