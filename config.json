@@ -1,0 +1,45 @@
+{
+  "vars": {
+    "applicationStorage": "{{home}}/sharkattack",
+    "mediaDirectory": "{{applicationStorage}}/media",
+    "logsDirectory": "{{applicationStorage}}/logs",
+    "analyticsDirectory": "{{applicationStorage}}/analytics"
+  },
+  "mediaInfoExecutable": "./libs/MediaInfo.exe",
+  "youtubedlExecutable": "./libs/youtube-dl.exe",
+  "ffmpegExecutable": "./libs/ffmpeg.exe",
+  "mediaDirectory": "{{mediaDirectory}}",
+  "schedule": {
+    "packaging": "at 9:00 pm",
+    "cleaning": "at 8:30 pm",
+    "discovery": "at 8:15 am"
+  },
+  "packaging": {
+    "showLocation": "{{applicationStorage}}/shows",
+    "showIntro": "VO_intro.mp3",
+    "showVOBed": "VO_musicbed.mp3",
+    "voFadeInDuration": 5,
+    "voFadeOutDuration": 2,
+    "voDelay": 7,
+    "voEndPadding": 4,
+    "voOutFileSampleRate": 44100,
+    "compress": true
+  },
+  "cleaning": {
+    "ignoreDirectories": ["{{mediaDirectory}}/vo", "{{mediaDirectory}}/vosegments"],
+    "deleteAllShows": true
+  },
+  "analytics": {
+    "root": "{{analyticsDirectory}}",
+    "channelfrequency": "{{analyticsDirectory}}/channelfreq.json"
+  },
+  "logging": {
+    "runlog": "{{logsDirectory}}/runlog.json",
+    "root": "{{logsDirectory}}"
+  },
+  "sourcefeed": "{{applicationStorage}}/feeds/feed-library.json",
+  "libLocation": "{{applicationStorage}}/output.json",
+  "dbLocation": "{{applicationStorage}}/database",
+  "allowYouTube": true,
+  "allowVimeo": true
+}
