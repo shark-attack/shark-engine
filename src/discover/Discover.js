@@ -9,7 +9,7 @@ var Output = require('./output/Output');
 var events = require("events");
 var util = require('util');
 var fs = require('fs');
-var path = requrie('path');
+var path = require('path');
 
 function Discover(config) {
     var self = this;
