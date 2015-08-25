@@ -9,6 +9,7 @@ var Output = require('./output/Output');
 var events = require("events");
 var util = require('util');
 var fs = require('fs');
+var path = requrie('path');
 
 function Discover(config) {
     var self = this;
@@ -56,6 +57,10 @@ function Discover(config) {
     this.run = function(data) {
         if (!data) { data = this.cfg.sourcefeed; }
         if (typeof data === "string") {
+            if (!fs.existsSync(data)) {
+                data = __dirname + path.sep + '/../../backups/feed-library.json';
+                self.log("Discover", "Warning, no feed library found using backup - please update your configuration file", { date: new Date(), level: "error" });
+            }
             data = JSON.parse(fs.readFileSync(data));
         }
         data.sources.forEach( function (src) {
