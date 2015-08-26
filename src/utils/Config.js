@@ -73,6 +73,16 @@ var Config = function() {
     };
 
     /**
+     * make sure directories exist that are in the config
+     */
+    this.ensureDirectoryStructure = function() {
+        File.prototype.ensureDirectoriesExist([
+            cfg.applicationStorage,
+            cfg.mediaDirectory
+        ]);
+    };
+
+    /**
      * parse vars
      * @param cfg
      * @param counter
@@ -103,6 +113,7 @@ var Config = function() {
             cfgvars = self.parsevars(cfgvars, counter)
         }
 
+        this.ensureDirectoryStructure();
         return cfgvars;
     };
 };
