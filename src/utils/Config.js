@@ -1,6 +1,7 @@
 var fs = require('fs');
 var path = require('path');
 var osenv = require('osenv');
+var File = require('./File')
 
 /**
  * Configuration
