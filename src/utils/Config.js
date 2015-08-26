@@ -22,6 +22,7 @@ var Config = function() {
     this.load = function(file) {
         var cfg = JSON.parse(fs.readFileSync(file));
         this.parse(cfg);
+        this.ensureDirectoryStructure(cfg);
         return cfg;
     };
 
@@ -76,7 +77,7 @@ var Config = function() {
     /**
      * make sure directories exist that are in the config
      */
-    this.ensureDirectoryStructure = function() {
+    this.ensureDirectoryStructure = function(cfg) {
         File.prototype.ensureDirectoriesExist([
             cfg.applicationStorage,
             cfg.mediaDirectory
@@ -113,8 +114,6 @@ var Config = function() {
         if (JSON.stringify(cfgvars).indexOf('{{') !== -1) {
             cfgvars = self.parsevars(cfgvars, counter)
         }
-
-        this.ensureDirectoryStructure();
         return cfgvars;
     };
 };
