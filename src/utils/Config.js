@@ -12,7 +12,8 @@ var Config = function() {
 
     /** vars to use */
     this.vars = {
-        home: osenv.home()
+        home: osenv.home(),
+        engine: path.resolve(__dirname + path.sep + '..' + path.sep + '..' + path.sep)
     };
 
     /**
