@@ -28,9 +28,15 @@ function Scheduler(config) {
         for (var c in config.schedule ) {
             var sched = later.parse.text(config.schedule[c]);
             config.log('Schedule', 'Next run of '  + c + ' scheduled for ' + later.schedule(sched).next(1), { date: new Date(), level: "verbose" });
-            this.tasks.push({ task: c, schedule: sched, timer: later.setTimeout(function() {
-                self.emit(this.RUN_TASK, c);
-            }, sched)});
+
+            var newtask = {
+                task: c,
+                schedule: sched,
+                timer: function(task) { later.setTimeout(function() { self.emit(this.RUN_TASK, task); }, sched) },
+                timerID: null
+            };
+            newtask.timerID = newtask.timer(c);
+            this.tasks.push(newtask);
         }
     };
 
@@ -39,7 +45,7 @@ function Scheduler(config) {
      */
     this.clearTasks = function() {
         for (var c in this.tasks) {
-            clearTimeout(this.tasks[c].timer);
+            clearTimeout(this.tasks[c].timerID);
         }
         this.tasks = [];
 
