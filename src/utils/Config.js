@@ -80,7 +80,7 @@ var Config = function() {
      */
     this.ensureDirectoryStructure = function(cfg) {
         File.prototype.ensureDirectoriesExist([
-            cfg.applicationStorage,
+            cfg.vars.applicationStorage,
             cfg.mediaDirectory
         ]);
     };
