@@ -81,7 +81,8 @@ var Config = function() {
     this.ensureDirectoryStructure = function(cfg) {
         File.prototype.ensureDirectoriesExist([
             cfg.vars.applicationStorage,
-            cfg.mediaDirectory
+            cfg.mediaDirectory,
+            cfg.packaging.showLocation
         ]);
     };
 
