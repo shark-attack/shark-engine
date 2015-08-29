@@ -113,14 +113,17 @@ function BuildShow(config) {
         });
 
         // add the show intro/outro
-        var introVO = {
-            "label": "intro VO",
-            "filename": config.packaging.showIntro,
-            "mediaType": "mp3",
-            "assetType": "audio",
-            "sourceid": "vo"};
-
-        self.assets.push(introVO);
+        if (config.packaging.showIntro) {
+            var introVO = {
+                "label": "intro VO",
+                "filename": config.packaging.showIntro,
+                "mediaType": "mp3",
+                "assetType": "audio",
+                "sourceid": "vo"
+            };
+    
+            self.assets.push(introVO);
+        }
         self.assets = self.assets.reverse();
 
         self.pls = new Playlist(self.assets);
