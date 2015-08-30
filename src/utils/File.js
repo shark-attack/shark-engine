@@ -16,26 +16,74 @@ File.prototype.safeFilename = function(filename) {
 /**
  * get all files in a directory
  * @param dir
- * @param ignore directories
+ * @param options
  * @param files_
  * @returns {*|Array}
  */
-File.prototype.getAllFiles = function(dir, ignore, files_){
+File.prototype.getAllFiles = function(dir, opts, files_){
+    if (!opts) { opts = {}; }
     files_ = files_ || [];
     var files = fs.readdirSync(dir);
     for (var i in files){
         var name = dir + path.sep + files[i];
         if (fs.statSync(name).isDirectory()) {
-            if (ignore.indexOf(name) === -1) {
-                File.prototype.getAllFiles(name, ignore, files_);
+            if (!opts.ignore || opts.ignore.indexOf(name) === -1) {
+                File.prototype.getAllFiles(name, opts, files_);
             }
         } else {
-            files_.push(name);
+            var ret = name;
+            var filtered = false;
+            if (opts.map) {
+                ret = opts.map.apply(this, [name, files[i], dir]);
+            }
+
+            if (opts.filter) {
+                filtered = opts.filter.apply(this, [ret, name, files[i], dir]);
+            }
+
+            if (!filtered) {
+                files_.push(ret);
+            }
         }
     }
     return files_;
 };
 
+/**
+ * get all folders in a directory
+ * @param dir
+ * @param options
+ * @param folders_
+ * @returns {*|Array}
+ */
+File.prototype.getAllFolders = function(dir, opts, folders_) {
+    if (!opts) { opts = {}; }
+    folders_ = folders_ || [];
+    var folders = fs.readdirSync(dir);
+    for (var i in folders){
+        var name = dir + path.sep + folders[i];
+        if (fs.statSync(name).isDirectory()) {
+            var ret = name;
+            var filtered = false;
+            if (opts.map) {
+                ret = opts.map.apply(this, [name, folders[i], dir]);
+            }
+
+            if (opts.filter) {
+                filtered = opts.filter.apply(this, [ret, name, folders[i], dir]);
+            }
+
+            if (!filtered) {
+                folders_.push(ret);
+            }
+
+            if (!opts.ignore || opts.ignore.indexOf(name) === -1) {
+                File.prototype.getAllFolders(name, opts, folders_);
+            }
+        }
+    }
+    return folders_;
+};
 
 /**
  * make sure directories exist

@@ -1,13 +1,11 @@
-var Config = require('./utils/Config');
-var Logging = require('./utils/Logging');
-var LogRead = require('./analytics/LogReader');
-var ChannelPerformance = require('./analytics/ChannelPerformance');
-var MediaFiles = require('./analytics/MediaFiles');
-var cfg = new Config().load('engine/config.json');
+var Config = require('./src/utils/Config');
+var Logging = require('./src/utils/Logging');
+var LogRead = require('./src/analytics/LogReader');
+var ChannelPerformance = require('./src/analytics/ChannelPerformance');
+var MediaFiles = require('./src/analytics/MediaFiles');
+var cfg = new Config().load('config.json');
 
-
-
-//var cp = new ChannelPerformance(cfg);
+var cp = new ChannelPerformance(cfg);
 
 /*var lr = new LogRead(cfg);
 var file = lr.getFiles('verbose')[0];

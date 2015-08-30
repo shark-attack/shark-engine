@@ -4,6 +4,7 @@ var Downloader = require('./assettasks/Downloader');
 var Transcoder = require('./assettasks/Transcoder');
 var GetMediaInfo = require('../utils/GetMediaInfo');
 var CriteriaCheck = require('./assettasks/CriteriaCheck');
+var ChannelPerformance = require('./analytics/ChannelPerformance');
 var Database = require('../utils/Database');
 var Output = require('./output/Output');
 var events = require("events");
@@ -201,6 +202,8 @@ function Discover(config) {
     this.onComplete = function() {
         var out = new Output(lib, config);
         self.emit(Discover.prototype.COMPLETE, lib, stats);
+        var cp = new ChannelPerformance(config);
+        self.log('Channel Performance', 'Channel Performance file created', { date: new Date(), level: 'verbose' });
         self.log("Discover", "Finished");
     };
 }
