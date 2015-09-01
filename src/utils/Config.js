@@ -82,8 +82,15 @@ var Config = function() {
         File.prototype.ensureDirectoriesExist([
             cfg.vars.applicationStorage,
             cfg.mediaDirectory,
-            cfg.packaging.showLocation
+            cfg.packaging.showLocation,
+            path.dirname(cfg.sourcefeed)
         ]);
+
+        // if source/channel feeds don't exist...copy
+        if (!fs.existsSync(cfg.sourcefeed)) {
+            var buffer = fs.readFileSync(__dirname + path.sep + '/../../backups/feed-library.json');
+            fs.writeFileSync(cfg.sourcefeed, buffer);
+        }
     };
 
     /**
