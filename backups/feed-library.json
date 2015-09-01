@@ -310,6 +310,17 @@
             "maxAge": 15,
             "maxDuration": 600,
             "maxItems": 10
+        },
+        {
+            "label": "NPR 5 Minute News",
+            "type": "rss",
+            "url": "http://www.npr.org/rss/podcast.php?id=500005",
+            "page": "http://npr.org",
+            "description": "Five minutes of NPR news, updated hourly.",
+            "id": "nprfivenews",
+            "maxAge": 1,
+            "maxDuration": 600,
+            "maxItems": 5
         }
     ]
 }
