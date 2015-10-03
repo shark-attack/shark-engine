@@ -21,6 +21,7 @@ AssetMetadataFormatter.prototype.apply = function(asset, source) {
 
     // record source id
     formatted.sourceid = source.id;
+    formatted.source = source.label;
 
     // apply custom rules by source
     switch (formatted.sourceid) {
@@ -51,7 +52,7 @@ AssetMetadataFormatter.prototype.apply = function(asset, source) {
     }
 
     return formatted;
-}
+};
 
 /**
  * apply custom rules to metadata (KUT specific)
@@ -82,7 +83,7 @@ AssetMetadataFormatter.prototype.applyKUT = function(asset) {
         }
         asset.label = asset.artist + " - " + asset.title;
     }
-}
+};
 
 /**
  * apply custom rules to metadata (MPR specific)
@@ -97,7 +98,7 @@ AssetMetadataFormatter.prototype.applyMPR = function(asset) {
         asset.title = meta[1].trim();
     }
     asset.label = asset.artist + " - " + asset.title;
-}
+};
 
 /**
  * apply custom rules to metadata (MPR specific

@@ -60,7 +60,9 @@ var VOMixer = function(config) {
      * on mix complete
      */
     this.onMixComplete = function(callback, asset) {
-        callback.apply(self, [asset]);
+        new GetMediaInfo(asset, function(err, a) {
+            callback.apply(self, [a]);
+        });
     };
 
     this.init();

@@ -119,7 +119,8 @@ function BuildShow(config) {
                 "filename": config.packaging.showIntro,
                 "mediaType": "mp3",
                 "assetType": "audio",
-                "sourceid": "vo"
+                "sourceid": "vo",
+                "source": "SharkAttack"
             };
     
             self.assets.push(introVO);
@@ -251,6 +252,7 @@ function BuildShow(config) {
                         'mediaType': 'mp3',
                         'assetType': 'audio',
                         'sourceid': 'vo',
+                        'source': 'SharkAttack',
                         'duration': mixedasset.duration
                     };
                     self.log('Build Show', 'Add ' + 'vo-block-' + id + ' after ' + item.asset.label + ' with offset 1 '  , { date: new Date(), level: "verbose" });
