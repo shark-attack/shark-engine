@@ -132,7 +132,8 @@ var VOCreation = function(config) {
             }
         };
 
-        http.request(options, function(response) {
+
+        var req = http.request(options, function(response) {
             response.setEncoding('base64');
             response.on('data', function (chunk) {
                 self.data[self.data.length-1] += chunk;
@@ -143,6 +144,7 @@ var VOCreation = function(config) {
                 self.onRequestComplete(txt);
             });
         });
+        req.end();
     };
 
     /**
