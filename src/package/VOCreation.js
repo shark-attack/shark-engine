@@ -33,9 +33,6 @@ var VOCreation = function(config) {
     /** response speech data */
     this.data = [''];
 
-    /** url for TTS request */
-    this.url = 'http://translate.google.com/translate_tts?tl=';
-
     /** language locale */
     this.locale = '';
 
@@ -125,7 +122,17 @@ var VOCreation = function(config) {
             return;
         }
 
-        http.get(self.url + self.locale + '&q=' + txt, function(response) {
+        var options = {
+            host: 'translate.google.com',
+            path: '/translate_tts?tl=' +self.locale + '&q=' + encodeURI(txt) + '&client=t',
+            method: 'GET',
+            headers: {
+                'User-Agent': 'stagefright/1.2 (Linux;Android 5.0)',
+                'Referer': 'http://translate.google.com/'
+            }
+        };
+
+        http.request(options, function(response) {
             response.setEncoding('base64');
             response.on('data', function (chunk) {
                 self.data[self.data.length-1] += chunk;
