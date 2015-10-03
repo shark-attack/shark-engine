@@ -52,7 +52,7 @@ function Clean(config) {
     this.catalog = function(dir, ignoredirs, lib) {
         var lib = JSON.parse(fs.readFileSync(lib));
         var libassets = Library.prototype.flattenToAudioFileList(lib, config.mediaDirectory);
-        var mediafiles = File.prototype.getAllFiles(dir, ignoredirs);
+        var mediafiles = File.prototype.getAllFiles(dir, { ignore: ignoredirs });
         var orphaned = this.getOrphanedMedia(libassets, mediafiles);
 
         var orphanedsize = 0;
