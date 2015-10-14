@@ -51,7 +51,7 @@ var VOMixer = function(config) {
                 function() {
                     // update with new duration
                     asset.duration = asset.duration + opts.voDelay + opts.voEndPadding;
-                    self.onMixComplete(callback, asset);
+                    self.onMixComplete(callback, opts.outfile);
                 });
         }, config);
     };
