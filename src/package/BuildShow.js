@@ -7,7 +7,7 @@ var util = require('util');
 var fs = require('fs');
 var path = require('path');
 var rmdir = require('rimraf');
-var VOCreation = require('./VOCreation');
+var VOCreation = require('./speech/WindowsNETVOCreation');
 var VOMixer = require('./VOMixer');
 
 /**
@@ -230,20 +230,18 @@ function BuildShow(config) {
         }
 
         var vo = new VOCreation(config);
-        vo.create('en', txt, function(result) {
-            if(result.success) {
-                var speechfile = config.packaging.showLocation + path.sep + self.showname + path.sep + 'tmp' + path.sep + 'vo-block-' + id + '.mp3';
-                fs.writeFileSync( speechfile, result.audio, 'base64');
+        vo.create('en', txt, config.packaging.showLocation + path.sep + self.showname + path.sep + 'tmp' + path.sep + 'vo-block-' + id + '.' + VOCreation.OUTPUTFORMAT, function(err) {
+            if(!err) {
                 var mixer = new VOMixer(config);
                 var opts = {
-                    vo: speechfile,
+                    vo: config.packaging.showLocation + path.sep + self.showname + path.sep + 'tmp' + path.sep + 'vo-block-' + id + '.' + VOCreation.OUTPUTFORMAT,
                     bed: config.mediaDirectory + path.sep + 'vo' + path.sep + config.packaging.showVOBed,
                     fadeInDuration: config.packaging.voFadeInDuration,
                     fadeOutDuration: config.packaging.voFadeOutDuration,
                     voDelay: config.packaging.voDelay,
                     voEndPadding: config.packaging.voEndPadding,
                     outFileSampleRate: config.packaging.voOutFileSampleRate,
-                    outfile: config.packaging.showLocation + path.sep + self.showname + path.sep + 'vo-block-' + id + '.mp3'
+                    outfile: config.packaging.showLocation + path.sep + self.showname + path.sep + 'vo-block-' + id + '.' + VOCreation.OUTPUTFORMAT
                 };
                 mixer.mix(opts, function(mixedasset) {
                     var voasset = {

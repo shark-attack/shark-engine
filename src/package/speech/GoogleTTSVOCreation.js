@@ -9,7 +9,7 @@
 
 var request = require('request');
 var fs = require('fs');
-var File = require('../utils/File')
+var File = require('../../../utils/File')
 var http = require('http');
 var path = require('path');
 
@@ -21,7 +21,7 @@ var path = require('path');
  * @param  {function({'audio' : String, 'message' : String })} callback = function invoked on translate completed with two
  * arguments : audio data as base64 and success true for translated ok and false otherwise
  */
-var VOCreation = function(config) {
+var GpogleVOCreation = function(config) {
     var self = this;
 
     /** voice cache to avoid duplicate requests */
@@ -51,7 +51,8 @@ var VOCreation = function(config) {
      * @param words
      * @param callback
      */
-    this.create = function(languageLocale, words, callback) {
+    this.create = function(languageLocale, words, outfile, callback) {
+        this.outputfile = outfile;
         config.log('VOCreation', 'Creating VO: ' + words, { date: new Date(), level: "verbose" });
         this.callback = callback;
         this.locale = languageLocale;
@@ -157,8 +158,8 @@ var VOCreation = function(config) {
             self.data.push('');
             self.nextRequest();
         } else {
-            var result = {'audio': self.data.join(), 'success': true};
-            self.callback(result);
+            fs.writeFileSync( this.outputfile, result.audio, 'base64');
+            self.callback();
             self.data = [];
         }
     };
@@ -166,6 +167,7 @@ var VOCreation = function(config) {
     this.init();
 };
 
-VOCreation.SPEECHBREAK = '<speechbreak>';
+GoogleTTSVOCreation.SPEECHBREAK = '<speechbreak>';
+GoogleTTSVOCreation.OUTPUTFORMAT = 'wav';
 
-exports = module.exports = VOCreation;
+exports = module.exports = GoogleTTSVOCreation;
