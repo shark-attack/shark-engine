@@ -13,13 +13,11 @@
     "flatdb": "0.0.1",
     "git-rev": "~0.2.1",
     "later": "^1.1.6",
-    "nodert-streams": "0.0.5",
     "osenv": "^0.1.0",
     "request": "^2.60.0",
     "rimraf": "^2.2.8",
     "sax": "^1.1.1",
     "walk": "^2.3.9",
-    "windows.media.speechsynthesis": "^0.1.6",
     "xml2js": "0.1.x",
     "youtube-dl": "1.2.x",
     "zip-dir": "^1.0.0"

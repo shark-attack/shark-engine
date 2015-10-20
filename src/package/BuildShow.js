@@ -7,7 +7,7 @@ var util = require('util');
 var fs = require('fs');
 var path = require('path');
 var rmdir = require('rimraf');
-var VOCreation = require('./speech/WindowsNETVOCreation');
+var VOCreation = require('./speech/WindowsPowerShellVOCreation');
 var VOMixer = require('./VOMixer');
 
 /**
@@ -197,6 +197,15 @@ function BuildShow(config) {
     };
 
     /**
+     * sanitize to ensure TTS works
+     * @param words
+     * @returns {XML|string|void}
+     */
+    this.sanitize = function(words) {
+        return words.replace(/[^a-z0-9]/gi,' ');
+    };
+
+    /**
      * create VO from asset queue
      * @param assetqueue
      * @param position in playlist offset
@@ -209,23 +218,23 @@ function BuildShow(config) {
             item = assetqueue.pop();
 
             if (item.intro) {
-                txt += VOCreation.SPEECHBREAK + item.intro + VOCreation.SPEECHBREAK;
+                txt += VOCreation.SPEECHBREAK + this.sanitize(item.intro) + VOCreation.SPEECHBREAK;
             }
 
             if (item.asset) {
                 if (item.asset.title && item.asset.artist) {
-                    txt += item.asset.title + VOCreation.SPEECHBREAK + ' by ' + VOCreation.SPEECHBREAK + item.asset.artist;
+                    txt += this.sanitize(item.asset.title) + VOCreation.SPEECHBREAK + ' by ' + VOCreation.SPEECHBREAK + this.sanitize(item.asset.artist);
                 } else if (item.asset.label && item.asset.label !== File.prototype.removeExtension(item.asset.filename)) {
-                    txt += item.asset.label;
+                    txt += this.sanitize(item.asset.label);
                 } else {
                     txt += 'something'
                 }
 
-                txt += VOCreation.SPEECHBREAK + ' found on ' + VOCreation.SPEECHBREAK + item.asset.sourcelabel + VOCreation.SPEECHBREAK;
+                txt += VOCreation.SPEECHBREAK + ' found on ' + VOCreation.SPEECHBREAK + this.sanitize(item.asset.sourcelabel) + VOCreation.SPEECHBREAK;
             }
 
             if (item.outtro) {
-                txt += VOCreation.SPEECHBREAK + item.outtro + VOCreation.SPEECHBREAK;
+                txt += VOCreation.SPEECHBREAK + this.sanitize(item.outtro) + VOCreation.SPEECHBREAK;
             }
         }
 
