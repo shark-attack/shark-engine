@@ -47,8 +47,9 @@ var VOMixer = function(config) {
                     ',afade=t=out:st=' + (asset.duration + opts.voDelay + opts.voEndPadding - opts.fadeOutDuration) + ':d=' + opts.fadeOutDuration +
                     '[BED];[0:0]adelay=' + opts.voDelay * 1000 + ',apad=pad_len=' +
                     endPaddingSamples + '[VO];[VO][BED]amix=inputs=2:duration=shortest',
-                    '-ar', opts.outFileSampleRate, opts.outfile], config,
-                function() {
+                    '-ar', opts.outFileSampleRate, '-f', 'mp3', opts.outfile], config,
+                function(err) {
+                    console.log(err)
                     // update with new duration
                     asset.duration = asset.duration + opts.voDelay + opts.voEndPadding;
                     self.onMixComplete(callback, opts.outfile);

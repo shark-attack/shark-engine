@@ -5,9 +5,9 @@
     "logsDirectory": "{{applicationStorage}}/logs",
     "analyticsDirectory": "{{applicationStorage}}/analytics"
   },
-  "mediaInfoExecutable": "./libs/MediaInfo.exe",
-  "youtubedlExecutable": "./libs/youtube-dl.exe",
-  "ffmpegExecutable": "./libs/ffmpeg.exe",
+  "mediaInfoExecutable": "{{engine}}/libs/MediaInfo.exe",
+  "youtubedlExecutable": "{{engine}}/libs/youtube-dl.exe",
+  "ffmpegExecutable": "{{engine}}/libs/ffmpeg.exe",
   "mediaDirectory": "{{mediaDirectory}}",
   "schedule": {
     "packaging": "at 9:00 pm",
@@ -16,8 +16,8 @@
   },
   "packaging": {
     "showLocation": "{{applicationStorage}}/shows",
-    "showIntro": "VO_intro.mp3",
-    "showVOBed": "VO_musicbed.mp3",
+    "showIntro": "{{engine}}/media/VO_intro.mp3",
+    "showVOBed": "{{engine}}/media/VO_musicbed.mp3",
     "showDuration": 5400,
     "showName": "SAShow",
     "voFadeInDuration": 5,

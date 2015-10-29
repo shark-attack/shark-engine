@@ -45,6 +45,7 @@ var Config = function() {
     this.resolvePaths = function(cfg) {
         for ( var c in cfg ) {
             if (typeof cfg[c] === 'string' && (cfg[c].indexOf('/') !== -1 || cfg[c].indexOf('\\') !== -1)) {
+                cfg[c] = cfg[c].replace(/\//g, path.sep);
                 cfg[c] = path.resolve(cfg[c]);
             } else if (typeof cfg[c] === 'object') {
                 cfg[c] = self.resolvePaths(cfg[c]);

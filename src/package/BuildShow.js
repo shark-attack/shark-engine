@@ -112,23 +112,6 @@ function BuildShow(config) {
             return -1;
         });
 
-        // add the show intro/outro
-        if (config.packaging.showIntro) {
-            var introVO = {
-                "label": "intro VO",
-                "filename": config.packaging.showIntro,
-                "mediaType": "mp3",
-                "assetType": "audio",
-                "sourceid": "vo",
-                "source": "SharkAttack"
-            };
-    
-            self.assets.push(introVO);
-        }
-        self.assets = self.assets.reverse();
-
-        self.pls = new Playlist(self.assets);
-
         if (!fs.existsSync(config.packaging.showLocation)) {
             fs.mkdirSync(config.packaging.showLocation);
         }
@@ -141,12 +124,37 @@ function BuildShow(config) {
             fs.mkdirSync(config.packaging.showLocation + path.sep + self.showname + path.sep + 'tmp');
         }
 
+        // add the show intro/outro
+        if (config.packaging.showIntro) {
+            var introVO = {
+                "label": "intro VO",
+                "filename": path.basename(config.packaging.showIntro),
+                "mediaType": "mp3",
+                "assetType": "audio",
+                "sourceid": "vo",
+                "source": "SharkAttack"
+            };
+            fs.writeFileSync(config.packaging.showLocation + path.sep + self.showname + path.sep + introVO.filename, fs.readFileSync(config.packaging.showIntro));
+            self.assets.push(introVO);
+        }
+        self.assets = self.assets.reverse();
+
+        self.pls = new Playlist(self.assets);
+
         self.log("Build Show", "Copying " + self.assets.length + " assets", { date: new Date(), level: "verbose" });
 
         self.assets.forEach( function(a) {
             var filename = a.filename;
             if (a.audioTranscodeFilename) { filename = a.audioTranscodeFilename; }
-            fs.writeFileSync(config.packaging.showLocation + path.sep + self.showname + path.sep + filename, fs.readFileSync(config.mediaDirectory + path.sep + a.sourceid + path.sep + filename));
+
+            var copyfrom = config.mediaDirectory + path.sep + a.sourceid + path.sep + filename; // assume discovered asset
+            var copyto = config.packaging.showLocation + path.sep + self.showname + path.sep + filename;
+            if (filename !== path.basename(filename)) { // is absolute path?
+                copyfrom = filename;
+                copyto = config.packaging.showLocation + path.sep + path.basename(filename)
+            }
+
+            fs.writeFileSync(copyto, fs.readFileSync(copyfrom));
         });
         self.createVoiceOvers();
     };
@@ -244,13 +252,13 @@ function BuildShow(config) {
                 var mixer = new VOMixer(config);
                 var opts = {
                     vo: config.packaging.showLocation + path.sep + self.showname + path.sep + 'tmp' + path.sep + 'vo-block-' + id + '.' + VOCreation.OUTPUTFORMAT,
-                    bed: config.mediaDirectory + path.sep + 'vo' + path.sep + config.packaging.showVOBed,
+                    bed: config.packaging.showVOBed,
                     fadeInDuration: config.packaging.voFadeInDuration,
                     fadeOutDuration: config.packaging.voFadeOutDuration,
                     voDelay: config.packaging.voDelay,
                     voEndPadding: config.packaging.voEndPadding,
                     outFileSampleRate: config.packaging.voOutFileSampleRate,
-                    outfile: config.packaging.showLocation + path.sep + self.showname + path.sep + 'vo-block-' + id + '.' + VOCreation.OUTPUTFORMAT
+                    outfile: config.packaging.showLocation + path.sep + self.showname + path.sep + 'vo-block-' + id + '.mp3'
                 };
                 mixer.mix(opts, function(mixedasset) {
                     var voasset = {
