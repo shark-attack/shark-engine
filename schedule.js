@@ -3,8 +3,7 @@ var Scheduler = require('./src/schedule/Scheduler');
 var Logging = require('./src/utils/Logging');
 
 var cfg = new Config().load('./config.json');
-cfg.log = Logging.console;
-Logging.config = cfg;
+Logging.applyConfig(cfg);
 
 var schedule = new Scheduler(cfg);
 schedule.on(Scheduler.RUN_TASK, function(task) {

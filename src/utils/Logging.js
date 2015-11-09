@@ -7,6 +7,34 @@ var time = require('./Time');
 function Logging() {}
 
 Logging._filestreams = {};
+Logging.methods = [];
+
+/**
+ * register methods from config
+ * @param methods
+ */
+Logging.applyConfig = function(cfg) {
+    Logging.config = cfg;
+    cfg.log = Logging.log;
+    if (cfg.logging && cfg.logging.methods) {
+        for (var c = 0; c < cfg.logging.methods.length; c++) {
+            switch (cfg.logging.methods[c]) {
+                case 'console':
+                    Logging.methods.push(Logging.console);
+                    break;
+            }
+        }
+    }
+};
+
+/**
+ * log
+ */
+Logging.log = function(type, message) {
+    for (var c = 0; c < Logging.methods.length; c++) {
+        Logging.methods[c](type, message);
+    }
+};
 
 /**
  * Log to console

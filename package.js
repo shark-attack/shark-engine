@@ -4,8 +4,7 @@ var zipdir = require('zip-dir');
 var path = require('path');
 
 var cfg = new Config().load('config.json');
-cfg.log = Logging.console;
-Logging.config = cfg;
+Logging.applyConfig(cfg);
 
 var starttime = new Date();
 var BuildShow = require('./src/package/BuildShow.js');

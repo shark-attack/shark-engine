@@ -2,8 +2,7 @@ var Config = require('./src/utils/Config');
 var Logging = require('./src/utils/Logging');
 
 var cfg = new Config().load('./config.json');
-cfg.log = Logging.console;
-Logging.config = cfg;
+Logging.applyConfig(cfg);
 
 var starttime = new Date();
 var Discover = require('./src/discover/Discover.js');

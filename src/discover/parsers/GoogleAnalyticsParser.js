@@ -126,7 +126,7 @@ function GoogleAnalyticsParser(source, cb, config) {
                     self.log("Google Analytics Parser", "Google Analytics Returned " + results.length + " results", { date: new Date(), level: "verbose", source: source });
                     cb.apply(self, [results]);
                 } catch (error) {
-                    console.log(error)
+                    //console.log(error)
                     self.log("Google Analytics Parser", "Google Analytics Error", { date: new Date(), level: "error", source: source, error: error });
                     cb.apply(self, []);
                 }

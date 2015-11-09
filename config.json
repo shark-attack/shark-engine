@@ -37,7 +37,8 @@
   },
   "logging": {
     "runlog": "{{logsDirectory}}/runlog.json",
-    "root": "{{logsDirectory}}"
+    "root": "{{logsDirectory}}",
+    "methods": ["console"]
   },
   "sourcefeed": "{{applicationStorage}}/feeds/feed-library.json",
   "libLocation": "{{applicationStorage}}/output.json",

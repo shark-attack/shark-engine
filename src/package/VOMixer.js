@@ -49,7 +49,7 @@ var VOMixer = function(config) {
                     endPaddingSamples + '[VO];[VO][BED]amix=inputs=2:duration=shortest',
                     '-ar', opts.outFileSampleRate, '-f', 'mp3', opts.outfile], config,
                 function(err) {
-                    console.log(err)
+                    //console.log(err)
                     // update with new duration
                     asset.duration = asset.duration + opts.voDelay + opts.voEndPadding;
                     self.onMixComplete(callback, opts.outfile);

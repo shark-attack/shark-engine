@@ -286,7 +286,6 @@ File.prototype.copyFiles = function(files, source, dest, appendExtensions) {
                 buffer = fs.readFileSync(source + path.sep + file + appendExtensions[d]);
                 fs.writeFileSync(dest + path.sep + file + appendExtensions[d], buffer);
             } catch (e) {
-                console.log(e)
                 uncopied.push(source + path.sep + file);
             }
         }
