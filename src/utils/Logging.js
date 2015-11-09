@@ -30,9 +30,9 @@ Logging.applyConfig = function(cfg) {
 /**
  * log
  */
-Logging.log = function(type, message) {
+Logging.log = function(type, message, details) {
     for (var c = 0; c < Logging.methods.length; c++) {
-        Logging.methods[c](type, message);
+        Logging.methods[c](type, message, details);
     }
 };
 
