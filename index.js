@@ -3,7 +3,8 @@ var engine = {
     package: require('./package'),
     clean: require('./clean'),
     discover: require('./discover'),
-    schedule: require('./schedule')
+    schedule: require('./schedule'),
+    logging: require('./src/utils/Logging')
 };
 
 module.exports = engine;
