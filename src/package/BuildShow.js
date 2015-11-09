@@ -128,13 +128,12 @@ function BuildShow(config) {
         if (config.packaging.showIntro) {
             var introVO = {
                 "label": "intro VO",
-                "filename": path.basename(config.packaging.showIntro),
+                "filename": config.packaging.showIntro,
                 "mediaType": "mp3",
                 "assetType": "audio",
                 "sourceid": "vo",
                 "source": "SharkAttack"
             };
-            fs.writeFileSync(config.packaging.showLocation + path.sep + self.showname + path.sep + introVO.filename, fs.readFileSync(config.packaging.showIntro));
             self.assets.push(introVO);
         }
         self.assets = self.assets.reverse();
@@ -151,14 +150,14 @@ function BuildShow(config) {
             var copyto = config.packaging.showLocation + path.sep + self.showname + path.sep + filename;
             if (filename !== path.basename(filename)) { // is absolute path?
                 copyfrom = filename;
-                copyto = config.packaging.showLocation + path.sep + path.basename(filename)
+                copyto = config.packaging.showLocation + path.sep + self.showname + path.sep + path.basename(filename)
             }
 
+            a.filename = path.basename(filename);
             fs.writeFileSync(copyto, fs.readFileSync(copyfrom));
         });
         self.createVoiceOvers();
     };
-
     /**
      * create vo's from playlist
      */
